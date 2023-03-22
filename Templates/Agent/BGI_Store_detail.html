@@ -1,0 +1,39 @@
+
+{% extends 'Agent/BGI_Store.html' %}
+{% block storedetail %}
+   <div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+              <h5 id="store_name" class="card-title text-center">{{store.Address}} {{store.Store_Name}}</h5>
+              <h5 class="card-title">Store Manager:
+                {% if manager.user %}
+                <span id="store_manager"> {{manager.user.first_name}} {{manager.user.last_name}}</span>
+                {% else %}
+                <span id="store_manager">TBA</span>
+                {% endif %}
+              </h5>
+              <h5 class="card-title">Location:
+                <span id="store_location">{{store.Address}}</span>
+              </h5>
+              <h5 class="card-title">Phone:
+                <span id="phone"> {{manager.phone}}</span>
+              </h5>
+              <h5 class="card-title">Date:
+                <span id="date">{{store.date_created}}</span>
+              </h5>
+            </div>
+          </div><!-- End Default Card -->
+
+    </div>
+    <div class="col-lg-6">
+        {% if store.OnMap %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Store Location in Google Map</h5>
+            <p>{{store.OnMap|safe}}</p>
+          </div>
+        </div><!-- End Default Card -->
+      {% endif %}
+ </div>
+{% endblock %}

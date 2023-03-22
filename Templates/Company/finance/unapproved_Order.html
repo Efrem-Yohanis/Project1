@@ -1,0 +1,64 @@
+
+{% extends 'Company/finance/home.html' %}
+{% load static %}
+{% block table %}
+<div class="row">
+    <div class="card recent-sales overflow-auto">
+      <h5 class="card-title">New Agent Order</h5>
+      <table class="table table-border datatable" id="approve_orders">
+        <thead>
+          <tr>
+            
+            <th scope="col">Date</th>
+            <th scope="col">Agent</th>
+            <th scope="col">Order Code</th>
+            <th scope="col">Total paid</th>
+            <th scope="col">Approveal Status</th>
+            <th scope="col">View</th>
+            <th scope="col">Approve</th>
+            <th scope="col">Reject</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in all_tranaction %}
+          {% if transaction.Agent_order_id.status == 'Pending'  %}
+          <tr>
+            <td>{{transaction.date_created}}</td>
+            <td>{{transaction.Agent_order_id.Agent.Full_Name}}</td>
+            <td>{{transaction.TransactionCode}}</td>
+            <td>{{transaction.Total_Amount}}</td>
+            <td><span class="badge bg-warning">{{transaction.Agent_order_id.status}}</span></td>
+            <td>
+              
+              <a href="{% url 'check_slip_view' transaction.id %}">
+
+                <h3 class="text-center"> <i class="bi bi-eye"></i></h3>
+              
+              </a>  
+            
+            </td>
+            <td>
+              <a href="{% url 'approve-order' transaction.id %}">
+                <h4 class="text-center"><i class="bi bi-check-circle"></i></h4>
+              </a>
+            </td>
+            <td>
+              <a href="{% url 'reject_order' transaction.id %}">
+                <h4 class="text-center"><i class="bi bi-x-circle"></i></h4>
+              </a>
+            </td>
+          </tr>
+           {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="text-end">
+      <button id="download_excel" type="button" class="btn btn-secondary btn-sm">Excel</button>
+      <button id="download_pdf" onclick="pdfDownload()" type="button"
+        class="btn btn-secondary btn-sm">Pdf</button>
+    </div>
+    <br>
+    <br>
+  </div>
+{% endblock %}

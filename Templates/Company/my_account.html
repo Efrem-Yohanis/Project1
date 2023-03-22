@@ -1,0 +1,77 @@
+{% extends 'Company/company-base.html'%}
+{% block content %}
+{% load static %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>My Account</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'admin-dashbord' %}">Home</a></li>
+        <li class="breadcrumb-item active">My Account</li>
+      </ol>
+    </nav>
+  </div>
+  {% for mssg in messages%}
+  {% if mssg.tags == 'success' %}
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ mssg }}";
+    swal(m, "", "success")
+  </script>
+
+  {%else %}
+  <div class="alert alert-warning" role="alert">
+    {{mssg}}
+  </div>
+  {% endif %}
+  {% endfor %}
+  <section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">My Acconut info <img src="assets/img/yene.png" alt=""></h5>
+                  {% for account in my_Account %}
+                  <p>Username: {{account.username}}</p>
+                  <p>Merchant Id: {{account.MerchantId}}</p>
+                  {% endfor %}
+                 </div>
+              </div><!-- End Default Card -->
+             </div>
+        <div class="col-lg-6 col-md-6">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                <div class="card">
+                    <div class="card-body">
+                     <h5 class="card-title">Up-Date Merchant Id</h5>
+                     <div class="col p-2">
+                        <label for="mid" class="col col-form-label">Merchant Id</label>
+                     </div>
+                     <div class="col p-2">
+                        <input type="text" class="form-control" name="new_mid" value="{{MId}}" id="mid">
+                      </div>
+                      <div class="col p-2">
+                        <input type="text" class="form-control" name="old_mid" value="{{MId}}" hidden>
+                      </div>
+                      <div class="col p-2 ">
+                        <button type="submit" class="btn btn-warning btn-lg">Update</button>
+                      </div>
+                    </div>
+                   </div>
+                 </div>
+              </form><!-- End General Form Elements -->
+            </div>
+    </div>
+    
+        </div>
+          
+
+
+
+    </div>
+    </section>
+    </main>
+    {% endblock %}

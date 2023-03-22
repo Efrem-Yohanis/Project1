@@ -1,0 +1,40 @@
+{% extends 'Company/company-base.html'%}
+{% block content %}
+{% load static %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>My Account</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'admin-dashbord' %}">Home</a></li>
+        <li class="breadcrumb-item active">My Account</li>
+      </ol>
+    </nav>
+  </div>
+  {% for mssg in messages%}
+  {% if mssg.tags == 'success' %}
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ mssg }}";
+    swal(m, "", "success")
+  </script>
+
+  {%else %}
+  <div class="alert alert-warning" role="alert">
+    {{mssg}}
+  </div>
+  {% endif %}
+  {% endfor %}
+  <section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+         
+        </div>
+       
+    </div>
+    </div>
+    </section>
+    </main>
+    {% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'Company/company-base.html'%}
+{% block content %}
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Send Message</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'admin-dashbord' %}">Home</a></li>
+        <li class="breadcrumb-item active">Send Message</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section dashboard">
+    <div class="col-lg-8 col-md-8">
+        {% if send == True %}
+        <p class="h5">You have sent messages successfully. </>
+          <div class="d-grid col-md-3">
+            <br>
+            <br>
+            <br>
+            <a href="{% url 'send_message' %}" class="btn btn-warning">Back</a>
+            <br>
+            <br>
+          </div>
+        
+        {% else %}
+        <div class="card p-4">
+        <form action="" method="post" class="">
+          {% csrf_token %}
+          <div class="row gy-4">
+            <div class="col-md-6 ">
+              <input type="text" class="form-control" name="subject" id="custemail" placeholder="Subject" required>
+            </div>
+            <div class="col-md-6 ">
+              <input type="email" class="form-control" name="to_email" id="custemail" placeholder="To" required>
+            </div>
+            <div class="col-md-12">
+              <textarea class="form-control" name="message" id="message" rows="6" placeholder="Message"
+                required></textarea>
+            </div>
+            <div class="col-md-12 text-center">
+              <button id="sendmessage" class="btn btn-warning btn-md btn-block text-white w-100" type="submit">Send
+                Message</button>
+            </div>
+          </div>
+        </form>
+        </div>
+        {% endif %}
+     
+    </div>
+  </section>
+  {% endblock %}
