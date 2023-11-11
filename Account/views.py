@@ -14,6 +14,7 @@ from django.core import validators
 
 def login_view(request):
     if request.user.is_authenticated:
+        
         if hasattr(request.user,'groups'):
            
                 a = request.user.groups.all()[0].name
