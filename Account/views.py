@@ -14,27 +14,19 @@ from django.core import validators
 
 def login_view(request):
     if request.user.is_authenticated:
-        
         if hasattr(request.user,'groups'):
-           
                 a = request.user.groups.all()[0].name
                 if a == 'Admin':
                     return redirect('admin-dashbord',)
                 elif a == 'Agent':
-
                     return redirect('agent_dashbord')
                 elif a == 'Customer':
-
                     return redirect('Customer_dashbord')
                 elif a == 'Financ_admin':
-
                     return redirect('finance_admin_home')
                 elif a == 'Store_Manager':
-
                     return redirect('store-manager-home')
-
                 elif a == 'Driver':
-
                     return redirect('draiver_page')
 
         else:

@@ -1,10 +1,12 @@
 import os
 import django_heroku
 import dj_database_url
+from pathlib import Path
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -71,10 +73,22 @@ WSGI_APPLICATION = 'BGI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ohrmsdb',
+        'USER': 'ohrmsdb_user',
+        'PASSWORD': 'rYCzLOMytQXtRhQ0rAneqbXUa3XptJR4',
+        'HOST': 'dpg-cljnhe98mmjc73da4kj0-a.oregon-postgres.render.com',
+        'PORT': '',
     }
 }
+database_url = os.environ.get("DATABASES_URL")
+# Parse the PostgreSQL database URL
+url = "postgres://ohrmsdb_user:rYCzLOMytQXtRhQ0rAneqbXUa3XptJR4@dpg-cljnhe98mmjc73da4kj0-a.oregon-postgres.render.com/ohrmsdb"
+parsed_db = dj_database_url.parse(database_url)
+
+# Update the 'default' database configuration
+
+DATABASES['default'].update(parsed_db)
 
 
 # Password validation
@@ -116,16 +130,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [BASE_DIR / "static"] # new
+STATIC_ROOT = BASE_DIR / "staticfiles" # new
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'File')
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-
-STATICFILES_DIRS = (
-os.path.join(BASE_DIR, 'static'),
-)
-django_heroku.settings(locals())
-
 
 GRAPH_MODELS = {
     'all_applications': True,
